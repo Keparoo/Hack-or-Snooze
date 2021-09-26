@@ -23,9 +23,10 @@ class Story {
 
   /** Parses hostname out of URL and returns it. */
 
-  getHostName() {
+  getHostName(url) {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    const urlObj = new URL(url)
+    return urlObj.hostname;
   }
 }
 
@@ -75,6 +76,7 @@ class StoryList {
 
   async addStory( /* user, newStory */) {
     // UNIMPLEMENTED: complete this function!
+    
   }
 }
 
