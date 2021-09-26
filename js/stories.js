@@ -21,9 +21,9 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(star, story) {
 	// console.debug("generateStoryMarkup", story);
-
 	const hostName = story.getHostName();
-	return $(`<li id="${story.storyId}">${star} 
+	return $(`<li id="${story.storyId}">
+        <span class="star">${star}</span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -35,9 +35,8 @@ function generateStoryMarkup(star, story) {
 }
 
 const isFavorite = (story) => {
-	// console.log(currentUser, story);
+	// console.debug('isFavorite');
 	for (let fav of currentUser.favorites) {
-		console.log(fav.storyId);
 		if (fav.storyId === story.storyId) {
 			return true;
 		}
@@ -52,15 +51,13 @@ function putStoriesOnPage() {
 
 	$allStoriesList.empty();
 
-	let star;
+	let star = '';
 	// loop through all of our stories and generate HTML for them
 	for (let story of storyList.stories) {
-		if (!currentUser) {
-			star = '';
-		} else {
+		if (currentUser) {
 			isFavorite(story)
-				? (star = '<i class="fas fa-star" />')
-				: (star = '<i class="far fa-star" />');
+				? (star = '<i class="fas fa-star"></i>')
+				: (star = '<i class="far fa-star"></i>');
 		}
 		const $story = generateStoryMarkup(star, story);
 		$allStoriesList.append($story);
