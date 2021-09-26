@@ -44,6 +44,30 @@ const isFavorite = (story) => {
 	return false;
 };
 
+const toggleStar = (evt) => {
+	console.debug('toggleStar');
+	// console.log($(evt.target).parent().parent().attr('id'));
+	const storyId = $(evt.target).parent().parent().attr('id');
+	let removed = false;
+	for (let fav of currentUser.favorites) {
+		if (fav.storyId === storyId) {
+			console.log('to be removed');
+			User.removeFavoriteStory(currentUser, fav);
+			removed = true;
+			putStoriesOnPage();
+		}
+	}
+	if (!removed) {
+		console.log('to be added');
+		for (let story of storyList.stories) {
+			if (story.storyId === storyId) User.addFavoriteStory(currentUser, story);
+			putStoriesOnPage();
+		}
+	}
+};
+
+$body.on('click', '.star', toggleStar);
+
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
