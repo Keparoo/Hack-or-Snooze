@@ -59,11 +59,6 @@ function submitNewStory(evt) {
     const author = $('#story-author').val()
     const title = $('#story-title').val()
     const url = $('#story-url').val()
-    console.debug(author, title, url)
 
-    //call .addStory
-    const newStory = storyList.addStory(currentUser, {title, author, url});
-    console.debug(newStory)
-    
-    //put new story on page
+    const newStory = storyList.addStory(currentUser, { title, author, url });
 }
