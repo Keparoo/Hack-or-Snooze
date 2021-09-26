@@ -215,7 +215,11 @@ class User {
 
   static removeFavoriteStory(user, story) {
     console.debug('remvoveFavoriteStory', user, story)
-    user.favorites.push(story)
+    
+    user.favorites = user.favorites.filter((s) => {
+        return s.storyId != story.storyId 
+    })
+    console.debug('Returned favorites', user.favorites)
     return user.favorites
     }
 }
