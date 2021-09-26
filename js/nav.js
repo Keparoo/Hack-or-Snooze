@@ -35,9 +35,9 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
-function submitStory(evt) {
+function navSubmitClick(evt) {
     console.debug("submitStory", evt)
     $submitStory.show()
 }
 
-$body.on("click", "#nav-submit", submitStory)
+$body.on("click", "#nav-submit", navSubmitClick)
