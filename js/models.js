@@ -212,7 +212,7 @@ class User {
 	}
 
 	static async removeFavoriteStory(user, story) {
-		console.debug('remvoveFavoriteStory', user, story);
+		console.debug('removeFavoriteStory', user, story);
 
 		user.favorites = user.favorites.filter((s) => {
 			return s.storyId != story.storyId;
@@ -220,10 +220,12 @@ class User {
 		console.log(user.username, story.storyId, user.loginToken);
 		const res = await axios.delete(
 			`${BASE_URL}/users/${user.username}/favorites/${story.storyId}`,
-			{ token: user.loginToken }
+			{ data: { token: user.loginToken } }
 		);
 		console.log('delete response', res);
 		console.debug('Returned favorites', user.favorites);
 		return user.favorites;
 	}
 }
+
+// https://hack-or-snooze-v3.herokuapp.com/users/keparoo/favorites/682a14c0-bb97-48fd-9059-e56ce553681d
