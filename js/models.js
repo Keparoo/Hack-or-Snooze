@@ -206,4 +206,16 @@ class User {
       return null;
     }
   }
+
+  static addFavoriteStory(user, story) {
+      console.debug('addFavoriteStory', user, story)
+      user.favorites.push(story)
+      return user.favorites
+  }
+
+  static removeFavoriteStory(user, story) {
+    console.debug('remvoveFavoriteStory', user, story)
+    user.favorites.push(story)
+    return user.favorites
+    }
 }
