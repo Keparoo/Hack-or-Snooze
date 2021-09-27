@@ -109,6 +109,8 @@ function putmyStoriesOnPage() {
 
 	$myStoriesList.empty();
 
+	const trashCan =
+		'<span class="trash"><i class ="fas fa-trash-alt"></i></span> ';
 	let star = '';
 	// loop through all of our stories and generate HTML for them
 	for (let story of currentUser.ownStories) {
@@ -116,7 +118,7 @@ function putmyStoriesOnPage() {
 			isFavorite(story)
 				? (star = '<i class="fas fa-star"></i>')
 				: (star = '<i class="far fa-star"></i>');
-			const $story = generateStoryMarkup(star, story);
+			const $story = generateStoryMarkup(trashCan + star, story);
 			$myStoriesList.append($story);
 		}
 		$myStoriesList.show();

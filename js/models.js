@@ -227,5 +227,3 @@ class User {
 		return user.favorites;
 	}
 }
-
-// https://hack-or-snooze-v3.herokuapp.com/users/keparoo/favorites/682a14c0-bb97-48fd-9059-e56ce553681d
