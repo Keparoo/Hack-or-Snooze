@@ -95,7 +95,7 @@ function putFavoritesOnPage() {
 
 	$favoriteStoriesList.empty();
 
-	let star = '<i class="fas fa-star"></i>';
+	const star = '<i class="fas fa-star"></i>';
 	// loop through all of favorites and generate HTML for them
 	for (let story of currentUser.favorites) {
 		const $story = generateStoryMarkup(star, story);
