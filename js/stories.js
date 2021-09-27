@@ -90,6 +90,20 @@ function putStoriesOnPage() {
 	$allStoriesList.show();
 }
 
+function putFavoritesOnPage() {
+	console.debug('putFavoritesOnPage');
+
+	$favoriteStoriesList.empty();
+
+	let star = '<i class="fas fa-star"></i>';
+	// loop through all of favorites and generate HTML for them
+	for (let story of user.favorites) {
+		const $story = generateStoryMarkup(star, story);
+		$favoriteStoriesList.append($story);
+	}
+	$favoriteStoriesList.show();
+}
+
 $submitStoryForm.on('submit', submitNewStory);
 
 function submitNewStory(evt) {
