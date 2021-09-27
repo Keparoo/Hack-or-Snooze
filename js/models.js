@@ -27,6 +27,16 @@ class Story {
 		const urlObj = new URL(this.url);
 		return urlObj.hostname;
 	}
+	static async deleteStory(user, storyId) {
+		console.debug('deleteStory');
+		//remove from favorites
+		//remove from my stories
+		//remove from all stories
+		const res = await axios.delete(`${BASE_URL}/stories/${storyId}`, {
+			data: { token: user.loginToken }
+		});
+		console.log('delete story response', res);
+	}
 }
 
 /******************************************************************************

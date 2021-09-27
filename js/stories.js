@@ -69,11 +69,13 @@ const toggleStar = (evt) => {
 
 $body.on('click', '.star', toggleStar);
 
-const deleteStory = (evt) => {
+const deleteStoryFromPage = (evt) => {
 	console.debug('deleteStory');
+	const storyId = $(evt.target).parent().parent().attr('id');
+	Story.deleteStory(currentUser, storyId);
 };
 
-$body.on('click', '.trash', deleteStory);
+$body.on('click', '.trash', deleteStoryFromPage);
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
