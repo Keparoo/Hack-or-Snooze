@@ -104,6 +104,25 @@ function putFavoritesOnPage() {
 	$favoriteStoriesList.show();
 }
 
+function putmyStoriesOnPage() {
+	console.debug('putmyStoriesOnPage');
+
+	$myStoriesList.empty();
+
+	let star = '';
+	// loop through all of our stories and generate HTML for them
+	for (let story of currentUser.ownStories) {
+		if (currentUser) {
+			isFavorite(story)
+				? (star = '<i class="fas fa-star"></i>')
+				: (star = '<i class="far fa-star"></i>');
+			const $story = generateStoryMarkup(star, story);
+			$myStoriesList.append($story);
+		}
+		$myStoriesList.show();
+	}
+}
+
 $submitStoryForm.on('submit', submitNewStory);
 
 function submitNewStory(evt) {

@@ -49,3 +49,11 @@ function navFavoritesClick(evt) {
 }
 
 $body.on('click', '#nav-favorites', navFavoritesClick);
+
+function myStoriesClick(evt) {
+	console.debug('myStoriesClick');
+	hidePageComponents();
+	putmyStoriesOnPage();
+}
+
+$body.on('click', '#nav-my-stories', myStoriesClick);
