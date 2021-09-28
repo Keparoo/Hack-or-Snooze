@@ -242,4 +242,14 @@ class User {
 
 		return this.favorites;
 	}
+
+	isFavorite = (story) => {
+		// console.debug('isFavorite');
+		for (let fav of this.favorites) {
+			if (fav.storyId === story.storyId) {
+				return true;
+			}
+		}
+		return false;
+	};
 }
