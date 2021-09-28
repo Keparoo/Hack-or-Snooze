@@ -44,12 +44,18 @@ const signup = async (evt) => {
 
 	// User.signup retrieves user info from API and returns User instance
 	// which we'll make the globally-available, logged-in user.
-	currentUser = await User.signup(username, password, name);
+	try {
+		currentUser = await User.signup(username, password, name);
 
-	saveUserCredentialsInLocalStorage();
-	updateUIOnUserLogin();
+		saveUserCredentialsInLocalStorage();
+		updateUIOnUserLogin();
 
-	$signupForm.trigger('reset');
+		$signupForm.trigger('reset');
+	} catch (e) {
+		console.log('Username already in use. Please choose another.', e);
+		$signupError.show();
+		$signupForm.trigger('reset');
+	}
 };
 
 $signupForm.on('submit', signup);
