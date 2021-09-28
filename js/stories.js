@@ -36,7 +36,7 @@ const generateStoryMarkup = (trash, star, story) => {
 };
 
 const isFavorite = (story) => {
-	console.debug('isFavorite');
+	// console.debug('isFavorite');
 	for (let fav of currentUser.favorites) {
 		if (fav.storyId === story.storyId) {
 			return true;
@@ -55,15 +55,17 @@ const getStory = (storyId) => {
 
 const toggleStar = (evt) => {
 	console.debug('toggleStar');
-	const storyId = $(evt.target).parent().parent().attr('id');
+	const $target = $(evt.target);
+	const storyId = $target.parent().parent().attr('id');
 
 	const story = getStory(storyId);
 	if (isFavorite(story)) {
-		User.removeFavoriteStory(currentUser, story);
+		currentUser.removeFavoriteStory(story);
+		$target.closest('i').toggleClass('fas far');
 	} else {
-		User.addFavoriteStory(currentUser, story);
+		currentUser.addFavoriteStory(story);
+		$target.closest('i').toggleClass('fas far');
 	}
-	putStoriesOnPage();
 };
 
 $body.on('click', '.star', toggleStar);
@@ -134,8 +136,6 @@ const putmyStoriesOnPage = () => {
 	}
 };
 
-$submitStoryForm.on('submit', submitNewStory);
-
 const submitNewStory = (evt) => {
 	evt.preventDefault();
 	console.debug('submitNewStory', evt);
@@ -145,3 +145,5 @@ const submitNewStory = (evt) => {
 
 	const newStory = storyList.addStory(currentUser, { title, author, url });
 };
+
+$submitStoryForm.on('submit', submitNewStory);
