@@ -3,21 +3,13 @@
 // This is the global list of the stories, an instance of StoryList
 let storyList;
 
-/** Get and show stories when site first loads. */
-
+// Get and show stories when site first loads
 const getAndShowStoriesOnStart = async () => {
 	storyList = await StoryList.getStories();
 	$storiesLoadingMsg.remove();
 
 	putStoriesOnPage();
 };
-
-/**
- * A render method to render HTML for an individual Story instance
- * - story: an instance of Story
- *
- * Returns the markup for the story.
- */
 
 // Returns true if the passed in story is a favorite
 const isFavorite = (story) => {
