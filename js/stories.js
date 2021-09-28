@@ -5,12 +5,12 @@ let storyList;
 
 /** Get and show stories when site first loads. */
 
-async function getAndShowStoriesOnStart() {
+const getAndShowStoriesOnStart = async () => {
 	storyList = await StoryList.getStories();
 	$storiesLoadingMsg.remove();
 
 	putStoriesOnPage();
-}
+};
 
 /**
  * A render method to render HTML for an individual Story instance
@@ -19,7 +19,7 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-function generateStoryMarkup(trash, star, story) {
+const generateStoryMarkup = (trash, star, story) => {
 	// console.debug("generateStoryMarkup", story);
 	const hostName = story.getHostName();
 	return $(`<li id="${story.storyId}">
@@ -33,7 +33,7 @@ function generateStoryMarkup(trash, star, story) {
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
-}
+};
 
 const isFavorite = (story) => {
 	// console.debug('isFavorite');
@@ -55,14 +55,14 @@ const toggleStar = (evt) => {
 			console.log('to be removed');
 			User.removeFavoriteStory(currentUser, fav);
 			removed = true;
-			putStoriesOnPage();
+			// putStoriesOnPage();
 		}
 	}
 	if (!removed) {
 		console.log('to be added');
 		for (let story of storyList.stories) {
 			if (story.storyId === storyId) User.addFavoriteStory(currentUser, story);
-			putStoriesOnPage();
+			// putStoriesOnPage();
 		}
 	}
 };
@@ -79,7 +79,7 @@ $body.on('click', '.trash', deleteStoryFromPage);
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
-function putStoriesOnPage() {
+const putStoriesOnPage = () => {
 	console.debug('putStoriesOnPage');
 
 	$allStoriesList.empty();
@@ -98,9 +98,9 @@ function putStoriesOnPage() {
 	}
 
 	$allStoriesList.show();
-}
+};
 
-function putFavoritesOnPage() {
+const putFavoritesOnPage = () => {
 	console.debug('putFavoritesOnPage');
 
 	$favoriteStoriesList.empty();
@@ -113,9 +113,9 @@ function putFavoritesOnPage() {
 		$favoriteStoriesList.append($story);
 	}
 	$favoriteStoriesList.show();
-}
+};
 
-function putmyStoriesOnPage() {
+const putmyStoriesOnPage = () => {
 	console.debug('putmyStoriesOnPage');
 
 	$myStoriesList.empty();
@@ -133,11 +133,11 @@ function putmyStoriesOnPage() {
 		}
 		$myStoriesList.show();
 	}
-}
+};
 
 $submitStoryForm.on('submit', submitNewStory);
 
-function submitNewStory(evt) {
+const submitNewStory = (evt) => {
 	evt.preventDefault();
 	console.debug('submitNewStory', evt);
 	const author = $('#story-author').val();
@@ -145,4 +145,4 @@ function submitNewStory(evt) {
 	const url = $('#story-url').val();
 
 	const newStory = storyList.addStory(currentUser, { title, author, url });
-}
+};
