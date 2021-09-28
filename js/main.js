@@ -21,6 +21,7 @@ const $navFavorites = $('#nav-favorites');
 const $navMyStories = $('#nav-my-stories');
 const $navUserProfile = $('#nav-user-profile');
 const $navLogOut = $('#nav-logout');
+const $loginError = $('#login-error');
 
 // Hide all page components before a screen redraw
 const hidePageComponents = () => {

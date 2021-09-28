@@ -18,12 +18,17 @@ const login = async (evt) => {
 
 	// User.login retrieves user info from API and returns User instance
 	// which we'll make the globally-available, logged-in user.
-	currentUser = await User.login(username, password);
+	try {
+		currentUser = await User.login(username, password);
+		$loginForm.trigger('reset');
 
-	$loginForm.trigger('reset');
-
-	saveUserCredentialsInLocalStorage();
-	updateUIOnUserLogin();
+		saveUserCredentialsInLocalStorage();
+		updateUIOnUserLogin();
+	} catch (e) {
+		console.log('Invalid username or password, please try again', e);
+		$loginError.show();
+		$loginForm.trigger('reset');
+	}
 };
 
 $loginForm.on('submit', login);
