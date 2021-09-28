@@ -29,11 +29,12 @@ const makeTrashMarkup = () => {
 
 // Generate the HTML for a story listing
 const generateStoryMarkup = (story, showTrash = false) => {
-	// console.debug("generateStoryMarkup", story);
+	// console.debug('generateStoryMarkup', story);
 
 	let trash;
 	showTrash ? (trash = makeTrashMarkup()) : (trash = '');
 	const star = makeStarMarkup(currentUser, story);
+	// console.log(story);
 	const hostName = story.getHostName();
 
 	return $(`<li id="${story.storyId}">
@@ -153,7 +154,7 @@ const submitNewStory = async (evt) => {
 		author,
 		url
 	});
-	const $story = generateStoryMarkup('', newStory);
+	const $story = generateStoryMarkup(newStory);
 	$allStoriesList.prepend($story);
 	$submitStoryForm.hide();
 	// $submitStoryForm.slideUp('slow');

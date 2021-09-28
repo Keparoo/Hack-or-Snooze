@@ -21,10 +21,10 @@ class Story {
 	}
 
 	// Parses hostname out of URL and returns it.
-	getHostName() {
+	getHostName = () => {
 		const urlObj = new URL(this.url);
 		return urlObj.hostname;
-	}
+	};
 }
 
 /**********************************************************************************/
