@@ -19,14 +19,25 @@ const getAndShowStoriesOnStart = async () => {
  * Returns the markup for the story.
  */
 
-const generateStoryMarkup = (trash, story) => {
-	// console.debug("generateStoryMarkup", story);
+const makeStarMarkup = (story) => {
 	let star = '';
 	if (currentUser) {
 		isFavorite(story)
 			? (star = '<i class="fas fa-star"></i>')
 			: (star = '<i class="far fa-star"></i>');
 	}
+	return star;
+};
+
+const makeTrashMarkup = () => {
+	return '<i class="fas fa-trash-alt"></i>';
+};
+
+const generateStoryMarkup = (story, showTrash = false) => {
+	// console.debug("generateStoryMarkup", story);
+	const star = makeStarMarkup(story);
+	let trash;
+	showTrash ? (trash = makeTrashMarkup()) : (trash = '');
 
 	const hostName = story.getHostName();
 	return $(`<li id="${story.storyId}">
@@ -94,11 +105,9 @@ const putStoriesOnPage = () => {
 
 	$allStoriesList.empty();
 
-	let trash = '';
-	// let star = '';
 	// loop through all of our stories and generate HTML for them
 	for (let story of storyList.stories) {
-		const $story = generateStoryMarkup(trash, story);
+		const $story = generateStoryMarkup(story);
 		$allStoriesList.append($story);
 	}
 
@@ -113,11 +122,9 @@ const putFavoritesOnPage = () => {
 	if (!currentUser.favorites.length) {
 		$favoriteStoriesList.append('<h3>Favorite List Empty!</h3>');
 	} else {
-		const trash = '';
-		// const star = '<i class="fas fa-star"></i>';
 		// loop through all of favorites and generate HTML for them
 		for (let story of currentUser.favorites) {
-			const $story = generateStoryMarkup(trash, story);
+			const $story = generateStoryMarkup(story);
 			$favoriteStoriesList.append($story);
 		}
 	}
@@ -132,15 +139,10 @@ const putmyStoriesOnPage = () => {
 	if (!currentUser.ownStories.length) {
 		$myStoriesList.append('<h3>My Stories List Empty!</h3>');
 	} else {
-		const trash = '<i class="fas fa-trash-alt"></i>';
-		// let star = '';
 		// loop through all of our stories and generate HTML for them
 		for (let story of currentUser.ownStories) {
-			// 	if (currentUser) {
-			// 		isFavorite(story)
-			// 			? (star = '<i class="fas fa-star"></i>')
-			// 			: (star = '<i class="far fa-star"></i>');
-			const $story = generateStoryMarkup(trash, story);
+			const showTrash = true;
+			const $story = generateStoryMarkup(story, showTrash);
 			$myStoriesList.append($story);
 		}
 	}
