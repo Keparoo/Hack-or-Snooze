@@ -57,3 +57,10 @@ const myStoriesClick = (evt) => {
 };
 
 $body.on('click', '#nav-my-stories', myStoriesClick);
+
+const showUserNavElements = () => {
+	console.debug('showUserNavElements');
+	$navSubmit.show();
+	$navFavorites.show();
+	$navMyStories.show();
+};
