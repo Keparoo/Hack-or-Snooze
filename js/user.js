@@ -24,7 +24,6 @@ const login = async (evt) => {
 	$loginForm.trigger('reset');
 
 	saveUserCredentialsInLocalStorage();
-	showUserNavElements();
 	updateUIOnUserLogin();
 };
 
@@ -45,7 +44,6 @@ const signup = async (evt) => {
 	currentUser = await User.signup(username, password, name);
 
 	saveUserCredentialsInLocalStorage();
-	showUserNavElements();
 	updateUIOnUserLogin();
 
 	$signupForm.trigger('reset');
