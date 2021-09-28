@@ -13,6 +13,7 @@ const $signupForm = $('#signup-form');
 const $submitStory = $('#submit-story');
 const $submitStoryForm = $('#submit-story-form');
 const $submitStoryBtn = $('#submit-story-btn');
+const $userProfileInfo = $('#user-profile-info');
 
 const $navLogin = $('#nav-login');
 const $navSubmit = $('#nav-submit');
@@ -29,7 +30,8 @@ const hidePageComponents = () => {
 		$signupForm,
 		$submitStory,
 		$favoriteStoriesList,
-		$myStoriesList
+		$myStoriesList,
+		$userProfileInfo
 	];
 	components.forEach((c) => c.hide());
 };

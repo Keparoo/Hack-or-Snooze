@@ -105,3 +105,10 @@ const updateUIOnUserLogin = () => {
 	updateNavOnLogin();
 	navAllStories();
 };
+
+const createUserProfile = () => {
+	console.debug('createUserProfile');
+	$('#profile-name').text(currentUser.name);
+	$('#profile-username').text(currentUser.username);
+	$('#profile-acct-created').text(currentUser.createdAt.slice(0, 10));
+};

@@ -11,17 +11,6 @@ const getAndShowStoriesOnStart = async () => {
 	putStoriesOnPage();
 };
 
-// Returns true if the passed in story is a favorite
-// const isFavorite = (story) => {
-// 	// console.debug('isFavorite');
-// 	for (let fav of currentUser.favorites) {
-// 		if (fav.storyId === story.storyId) {
-// 			return true;
-// 		}
-// 	}
-// 	return false;
-// };
-
 // Create the HTML for the favorite/not favorite star
 const makeStarMarkup = (user, story) => {
 	let star = '';

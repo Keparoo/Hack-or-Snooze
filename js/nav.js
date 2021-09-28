@@ -66,3 +66,13 @@ const showUserNavElements = () => {
 	$navFavorites.show();
 	$navMyStories.show();
 };
+
+// Display user profile info
+const showUserProfileInfo = () => {
+	console.debug('showUserProfileInfo');
+	hidePageComponents();
+	createUserProfile();
+	$userProfileInfo.show();
+};
+
+$body.on('click', '#nav-user-profile', showUserProfileInfo);
