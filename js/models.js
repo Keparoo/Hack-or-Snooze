@@ -27,16 +27,6 @@ class Story {
 		const urlObj = new URL(this.url);
 		return urlObj.hostname;
 	}
-	static async deleteStory(user, storyId) {
-		console.debug('deleteStory');
-		//remove from favorites
-		//remove from my stories
-		//remove from all stories
-		const res = await axios.delete(`${BASE_URL}/stories/${storyId}`, {
-			data: { token: user.loginToken }
-		});
-		console.log('delete story response', res);
-	}
 }
 
 /******************************************************************************
@@ -82,9 +72,9 @@ class StoryList {
    * Returns the new Story instance
    */
 
-	async addStory(user, newStory) {
+	addStory = async (user, newStory) => {
 		// UNIMPLEMENTED: complete this function!
-		const response = await axios.post(`${BASE_URL}/stories`, {
+		const res = await axios.post(`${BASE_URL}/stories`, {
 			token: user.loginToken,
 			story: {
 				author: newStory.author,
@@ -93,8 +83,29 @@ class StoryList {
 			}
 		});
 
-		return new Story(response.data.story);
-	}
+		const story = new Story(res.data.story);
+		this.stories.unshift(story);
+		user.ownStories.unshift(story);
+
+		return new Story(res.data.story);
+	};
+
+	deleteStory = async (user, storyId) => {
+		console.debug('deleteStory');
+
+		const res = await axios.delete(`${BASE_URL}/stories/${storyId}`, {
+			data: { token: user.loginToken }
+		});
+		console.debug('delete story response', res);
+
+		this.stories = this.stories.filter((story) => story.storyId !== storyId);
+		user.favorites = user.favorites.filter(
+			(story) => story.storyId !== storyId
+		);
+		user.ownStories = user.ownStories.filter(
+			(story) => story.storyId !== storyId
+		);
+	};
 }
 
 /******************************************************************************

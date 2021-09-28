@@ -70,10 +70,12 @@ const toggleStar = (evt) => {
 
 $body.on('click', '.star', toggleStar);
 
-const deleteStoryFromPage = (evt) => {
+const deleteStoryFromPage = async (evt) => {
 	console.debug('deleteStory');
 	const storyId = $(evt.target).parent().parent().attr('id');
-	Story.deleteStory(currentUser, storyId);
+	await storyList.deleteStory(currentUser, storyId);
+
+	await putmyStoriesOnPage();
 };
 
 $body.on('click', '.trash', deleteStoryFromPage);
@@ -106,12 +108,16 @@ const putFavoritesOnPage = () => {
 
 	$favoriteStoriesList.empty();
 
-	const trash = '';
-	const star = '<i class="fas fa-star"></i>';
-	// loop through all of favorites and generate HTML for them
-	for (let story of currentUser.favorites) {
-		const $story = generateStoryMarkup(trash, star, story);
-		$favoriteStoriesList.append($story);
+	if (!currentUser.favorites.length) {
+		$favoriteStoriesList.append('<h3>Favorite List Empty!</h3>');
+	} else {
+		const trash = '';
+		const star = '<i class="fas fa-star"></i>';
+		// loop through all of favorites and generate HTML for them
+		for (let story of currentUser.favorites) {
+			const $story = generateStoryMarkup(trash, star, story);
+			$favoriteStoriesList.append($story);
+		}
 	}
 	$favoriteStoriesList.show();
 };
@@ -121,29 +127,46 @@ const putmyStoriesOnPage = () => {
 
 	$myStoriesList.empty();
 
-	const trash = '<i class="fas fa-trash-alt"></i>';
-	let star = '';
-	// loop through all of our stories and generate HTML for them
-	for (let story of currentUser.ownStories) {
-		if (currentUser) {
-			isFavorite(story)
-				? (star = '<i class="fas fa-star"></i>')
-				: (star = '<i class="far fa-star"></i>');
-			const $story = generateStoryMarkup(trash, star, story);
-			$myStoriesList.append($story);
+	if (!currentUser.ownStories.length) {
+		$myStoriesList.append('<h3>My Stories List Empty!</h3>');
+	} else {
+		const trash = '<i class="fas fa-trash-alt"></i>';
+		let star = '';
+		// loop through all of our stories and generate HTML for them
+		for (let story of currentUser.ownStories) {
+			if (currentUser) {
+				isFavorite(story)
+					? (star = '<i class="fas fa-star"></i>')
+					: (star = '<i class="far fa-star"></i>');
+				const $story = generateStoryMarkup(trash, star, story);
+				$myStoriesList.append($story);
+			}
 		}
-		$myStoriesList.show();
 	}
+	$myStoriesList.show();
 };
 
-const submitNewStory = (evt) => {
+const submitNewStory = async (evt) => {
 	evt.preventDefault();
 	console.debug('submitNewStory', evt);
 	const author = $('#story-author').val();
 	const title = $('#story-title').val();
 	const url = $('#story-url').val();
 
-	const newStory = storyList.addStory(currentUser, { title, author, url });
+	const newStory = await storyList.addStory(currentUser, {
+		title,
+		author,
+		url
+	});
+	const $story = generateStoryMarkup(
+		'<i class="far fa-star"></i>',
+		'',
+		newStory
+	);
+	$allStoriesList.prepend($story);
+	$submitStoryForm.hide();
+	// $submitStoryForm.slideUp('slow');
+	$submitStoryForm.trigger('reset');
 };
 
 $submitStoryForm.on('submit', submitNewStory);
