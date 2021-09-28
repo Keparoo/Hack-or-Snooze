@@ -156,8 +156,7 @@ const submitNewStory = async (evt) => {
 	});
 	const $story = generateStoryMarkup(newStory);
 	$allStoriesList.prepend($story);
-	$submitStoryForm.hide();
-	// $submitStoryForm.slideUp('slow');
+	$submitStoryForm.slideUp('slow');
 	$submitStoryForm.trigger('reset');
 };
 
