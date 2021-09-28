@@ -59,7 +59,7 @@ const toggleStar = (evt) => {
 	const storyId = $target.parent().parent().attr('id');
 
 	const story = getStory(storyId);
-	if (isFavorite(story)) {
+	if ($target.closest('i').hasClass('fas')) {
 		currentUser.removeFavoriteStory(story);
 		$target.closest('i').toggleClass('fas far');
 	} else {
