@@ -36,7 +36,7 @@ const generateStoryMarkup = (trash, star, story) => {
 };
 
 const isFavorite = (story) => {
-	// console.debug('isFavorite');
+	console.debug('isFavorite');
 	for (let fav of currentUser.favorites) {
 		if (fav.storyId === story.storyId) {
 			return true;
@@ -45,26 +45,25 @@ const isFavorite = (story) => {
 	return false;
 };
 
+const getStory = (storyId) => {
+	for (let story of storyList.stories) {
+		if ((story.storyId = storyId)) {
+			return story;
+		}
+	}
+};
+
 const toggleStar = (evt) => {
 	console.debug('toggleStar');
-	// console.log($(evt.target).parent().parent().attr('id'));
 	const storyId = $(evt.target).parent().parent().attr('id');
-	let removed = false;
-	for (let fav of currentUser.favorites) {
-		if (fav.storyId === storyId) {
-			console.log('to be removed');
-			User.removeFavoriteStory(currentUser, fav);
-			removed = true;
-			// putStoriesOnPage();
-		}
+
+	const story = getStory(storyId);
+	if (isFavorite(story)) {
+		User.removeFavoriteStory(currentUser, story);
+	} else {
+		User.addFavoriteStory(currentUser, story);
 	}
-	if (!removed) {
-		console.log('to be added');
-		for (let story of storyList.stories) {
-			if (story.storyId === storyId) User.addFavoriteStory(currentUser, story);
-			// putStoriesOnPage();
-		}
-	}
+	putStoriesOnPage();
 };
 
 $body.on('click', '.star', toggleStar);

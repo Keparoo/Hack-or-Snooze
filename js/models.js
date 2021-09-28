@@ -227,13 +227,12 @@ class User {
 		user.favorites = user.favorites.filter((s) => {
 			return s.storyId != story.storyId;
 		});
-		console.log(user.username, story.storyId, user.loginToken);
 		const res = await axios.delete(
 			`${BASE_URL}/users/${user.username}/favorites/${story.storyId}`,
 			{ data: { token: user.loginToken } }
 		);
-		console.log('delete response', res);
-		console.debug('Returned favorites', user.favorites);
+		// console.log('delete response', res);
+		// console.debug('Returned favorites', user.favorites);
 		return user.favorites;
 	}
 }
