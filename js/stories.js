@@ -29,12 +29,11 @@ const makeTrashMarkup = () => {
 
 // Generate the HTML for a story listing
 const generateStoryMarkup = (story, showTrash = false) => {
-	// console.debug('generateStoryMarkup', story);
+	// console.debug('generateStoryMarkup');
 
 	let trash;
 	showTrash ? (trash = makeTrashMarkup()) : (trash = '');
 	const star = makeStarMarkup(currentUser, story);
-	// console.log(story);
 	const hostName = story.getHostName();
 
 	return $(`<li id="${story.storyId}">
@@ -52,6 +51,7 @@ const generateStoryMarkup = (story, showTrash = false) => {
 
 // Return a story object that matches the passed in storyId
 const getStory = (storyId) => {
+	// return storyList.stories.filter((story) => story.storyId === storyId)[0];
 	for (let story of storyList.stories) {
 		if ((story.storyId = storyId)) {
 			return story;
@@ -63,7 +63,7 @@ const getStory = (storyId) => {
 const toggleStar = (evt) => {
 	console.debug('toggleStar');
 	const $target = $(evt.target);
-	const storyId = $target.parent().parent().attr('id');
+	const storyId = $target.closest('li').attr('id');
 
 	const story = getStory(storyId);
 
@@ -81,7 +81,7 @@ $body.on('click', '.star', toggleStar);
 // Delete a story from the page and from the database
 const deleteStoryFromPage = async (evt) => {
 	console.debug('deleteStory');
-	const storyId = $(evt.target).parent().parent().attr('id');
+	const storyId = $(evt.target).closest('li').attr('id');
 	await storyList.deleteStory(currentUser, storyId);
 
 	putmyStoriesOnPage();
