@@ -113,4 +113,5 @@ const updateUIOnUserLogin = () => {
 	$allStoriesList.show();
 
 	updateNavOnLogin();
+	navAllStories();
 };
