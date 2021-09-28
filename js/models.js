@@ -7,9 +7,9 @@ const BASE_URL = 'https://hack-or-snooze-v3.herokuapp.com';
  */
 
 class Story {
-	/** Make instance of Story from data object about story:
-   *   - {title, author, url, username, storyId, createdAt}
-   */
+	/* Make instance of Story from data object about story:
+     *   - {title, author, url, username, storyId, createdAt}
+     */
 
 	constructor({ storyId, title, author, url, username, createdAt }) {
 		this.storyId = storyId;
@@ -20,19 +20,16 @@ class Story {
 		this.createdAt = createdAt;
 	}
 
-	/** Parses hostname out of URL and returns it. */
-
+	// Parses hostname out of URL and returns it.
 	getHostName() {
-		// UNIMPLEMENTED: complete this function!
 		const urlObj = new URL(this.url);
 		return urlObj.hostname;
 	}
 }
 
-/******************************************************************************
- * List of Story instances: used by UI to show story lists in DOM.
- */
+/**********************************************************************************/
 
+// List of Story instances: used by UI to show story lists in DOM.
 class StoryList {
 	constructor(stories) {
 		this.stories = stories;
@@ -90,6 +87,7 @@ class StoryList {
 		return new Story(res.data.story);
 	};
 
+	// Deletes a story from API, updates the users favorites and ownStories lists
 	deleteStory = async (user, storyId) => {
 		console.debug('deleteStory');
 
@@ -190,8 +188,8 @@ class User {
 	}
 
 	/** When we already have credentials (token & username) for a user,
-   *   we can log them in automatically. This function does that.
-   */
+     *   we can log them in automatically. This function does that.
+     */
 
 	static async loginViaStoredCredentials(token, username) {
 		try {

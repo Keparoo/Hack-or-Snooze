@@ -5,10 +5,9 @@ let currentUser;
 
 /******************************************************************************
  * User login/signup/login
- */
+ *****************************************************************************/
 
-/** Handle login form submission. If login ok, sets up the user instance */
-
+// Handle login form submission. If login ok, sets up the user instance
 const login = async (evt) => {
 	console.debug('login', evt);
 	evt.preventDefault();
@@ -29,8 +28,7 @@ const login = async (evt) => {
 
 $loginForm.on('submit', login);
 
-/** Handle signup form submission. */
-
+// Handle signup form submission.
 const signup = async (evt) => {
 	console.debug('signup', evt);
 	evt.preventDefault();
@@ -51,11 +49,7 @@ const signup = async (evt) => {
 
 $signupForm.on('submit', signup);
 
-/** Handle click of logout button
- *
- * Remove their credentials from localStorage and refresh page
- */
-
+// Handle click of logout button, remove credentials from localStorage & refresh page
 const logout = (evt) => {
 	console.debug('logout', evt);
 	localStorage.clear();
@@ -64,11 +58,9 @@ const logout = (evt) => {
 
 $navLogOut.on('click', logout);
 
-/******************************************************************************
- * Storing/recalling previously-logged-in-user with localStorage
- */
-
-/** If there are user credentials in local storage, use those to log in
+/* Storing/recalling previously-logged-in-user with localStorage
+ *
+ * If there are user credentials in local storage, use those to log in
  * that user. This is meant to be called on page load, just once.
  */
 
@@ -82,7 +74,7 @@ const checkForRememberedUser = async () => {
 	currentUser = await User.loginViaStoredCredentials(token, username);
 };
 
-/** Sync current user information to localStorage.
+/* Sync current user information to localStorage.
  *
  * We store the username/token in localStorage so when the page is refreshed
  * (or the user revisits the site later), they will still be logged in.
@@ -96,11 +88,9 @@ const saveUserCredentialsInLocalStorage = () => {
 	}
 };
 
-/******************************************************************************
- * General UI stuff about users
- */
-
-/** When a user signs up or registers, we want to set up the UI for them:
+/* General UI stuff about users
+ *
+/* When a user signs up or registers, we want to set up the UI for them:
  *
  * - show the stories list
  * - update nav bar options for logged-in user
