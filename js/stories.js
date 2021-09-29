@@ -49,23 +49,12 @@ const generateStoryMarkup = (story, showTrash = false) => {
     `);
 };
 
-// Return a story object that matches the passed in storyId
-const getStory = (storyId) => {
-	// return storyList.stories.filter((story) => story.storyId === storyId)[0];
-	for (let story of storyList.stories) {
-		if (story.storyId === storyId) {
-			return story;
-		}
-	}
-};
-
 // Toggle the Favorite Star for a story from Favorite to not Favorite or vice versa
 const toggleStar = async (evt) => {
 	console.debug('toggleStar');
 	const $target = $(evt.target);
 	const storyId = $target.closest('li').attr('id');
 
-	// const story = getStory(storyId);
 	const story = storyList.stories.find((s) => s.storyId === storyId);
 
 	if ($target.closest('i').hasClass('fas')) {
