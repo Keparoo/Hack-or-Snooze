@@ -98,8 +98,8 @@ const updateUser = async (evt) => {
 		$updateUserForm.trigger('reset');
 	} catch (e) {
 		console.log('Username already in use. Please choose another.', e);
-		$signupError.show();
-		$signupForm.trigger('reset');
+		$updateError.show();
+		$updateUserForm.trigger('reset');
 	}
 };
 
