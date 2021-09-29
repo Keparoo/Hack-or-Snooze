@@ -76,3 +76,10 @@ const showUserProfileInfo = () => {
 };
 
 $body.on('click', '#nav-user-profile', showUserProfileInfo);
+
+const showUpdateUserForm = () => {
+	console.debug('showUpdateUserForm');
+	$updateUserForm.show();
+};
+
+$body.on('click', '#update-user-btn', showUpdateUserForm);

@@ -21,3 +21,18 @@
 .user-profile > * {
 	margin: 10px 0;
 }
+
+#update-user-form button {
+	width: 8rem;
+}
+
+#update-user-btn {
+	margin: 5px 0px 15px 0px;
+	width: 8rem;
+	padding: 8px;
+	border: none;
+	cursor: pointer;
+	border-radius: 4px;
+	color: white;
+	background-color: lightslategray;
+}

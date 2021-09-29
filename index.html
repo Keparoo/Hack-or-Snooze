@@ -127,10 +127,33 @@
             <h4>User Profile Info</h4>
             <section>
                 <div>Name: <span id="profile-name"></span></div>
-                <div>Username: <span id="profile-username"></span></div>
+                <div>Username: <span id="profile-username"></button></div>
                 <div>Account Created: <span id="profile-acct-created"></span></div>
+                <div><button id="update-user-btn">update user info</button></div>
             </section>
         </div>
+
+        <section class="account-forms-container container">
+            <form action="#" id="update-user-form" class="account-form hidden" method="post">
+                <h4>Update User Account Info</h4>
+                <div class="login-input">
+                    <label for="update-name">name</label>
+                    <input id="update-name" autocapitalize="words">
+                </div>
+                <div class="login-input">
+                    <label for="update-username">username</label>
+                    <input id="update-username" autocomplete="new-username">
+                </div>
+                <div class="login-input">
+                    <label for="update-password">password</label>
+                    <input id="update-password" autocomplete="new-password" type="password">
+                </div>
+                <button type="submit">update account</button>
+                <div id="update-error" class="hidden">
+                    <h4>Username already in use. Please choose another.</h4>
+                </div>
+            </form>
+        </section>
     </section>
 
     <!-- Library JS & our JS -->
