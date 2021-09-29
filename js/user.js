@@ -60,6 +60,36 @@ const signup = async (evt) => {
 
 $signupForm.on('submit', signup);
 
+// Handle update-user form submission.
+const updateUser = async (evt) => {
+	console.debug('updateUser', evt);
+	evt.preventDefault();
+
+	const name = $('#update-name').val();
+	const username = $('#update-username').val();
+	const password = $('#update-password').val();
+
+	//create an object with new fields
+	newUserData = makeNewUserDataObject(name, username, password);
+
+	// User.updateUser sends any new fields to the API and updates the user info
+	// which we'll make the globally-available, logged-in user.
+	try {
+		currentUser = await currentUser.updateUser(newUserData);
+
+		saveUserCredentialsInLocalStorage();
+		updateUIOnUserLogin();
+
+		$updateUserForm.trigger('reset');
+	} catch (e) {
+		console.log('Username already in use. Please choose another.', e);
+		$signupError.show();
+		$signupForm.trigger('reset');
+	}
+};
+
+$signupForm.on('submit', signup);
+
 // Handle click of logout button, remove credentials from localStorage & refresh page
 const logout = (evt) => {
 	console.debug('logout', evt);
