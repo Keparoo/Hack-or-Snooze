@@ -27,12 +27,19 @@ const makeTrashMarkup = () => {
 	return '<i class="fas fa-trash-alt"></i>';
 };
 
+// Create the HTML for the update story button
+const makeUpdateMarkup = () => {
+	return '<button class="update-story-btn">update story</button>';
+};
+
 // Generate the HTML for a story listing
-const generateStoryMarkup = (story, showTrash = false) => {
+const generateStoryMarkup = (story, showTrash = false, showUpdate = false) => {
 	// console.debug('generateStoryMarkup');
 
 	let trash;
+	let update;
 	showTrash ? (trash = makeTrashMarkup()) : (trash = '');
+	showUpdate ? (update = makeUpdateMarkup()) : (update = '');
 	const star = makeStarMarkup(currentUser, story);
 	const hostName = story.getHostName();
 
@@ -41,9 +48,11 @@ const generateStoryMarkup = (story, showTrash = false) => {
         <span class="star">${star}</span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
+          
         </a>
         <small class="story-hostname">(${hostName})</small>
         <small class="story-author">by ${story.author}</small>
+        <span>${update}</span>
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
@@ -124,7 +133,8 @@ const putmyStoriesOnPage = () => {
 		// loop through all of our stories and generate HTML for them
 		for (let story of currentUser.ownStories) {
 			const showTrash = true;
-			const $story = generateStoryMarkup(story, showTrash);
+			const showUpdate = true;
+			const $story = generateStoryMarkup(story, showTrash, showUpdate);
 			$myStoriesList.append($story);
 		}
 	}

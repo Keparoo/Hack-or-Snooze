@@ -26,6 +26,8 @@ const $updateUserBtn = $('#update-user-btn');
 const $navLogOut = $('#nav-logout');
 const $loginError = $('#login-error');
 const $signupError = $('#signup-error');
+const $updateStory = $('#update-story');
+const $updateStoryForm = $('#update-story-form');
 
 // Hide all page components before a screen redraw
 const hidePageComponents = () => {
