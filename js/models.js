@@ -224,31 +224,31 @@ class User {
    * - opt name: the user's full name
    */
 
-	// async updateUser(newUserData) {
-	// 	console.log(newUserData);
+	async updateUser(newUserData) {
+		console.log(newUserData);
 
-	// 	console.debug('updateUser', `${BASE_URL}/users/${this.username}`);
-	// 	const response = await axios({
-	// 		url: `${BASE_URL}/users/${this.username}`,
-	// 		method: 'PATCH',
-	// 		data: { token: this.loginToken, user: newUserData }
-	// 	});
-	// 	console.log('response', response);
+		console.debug('updateUser', `${BASE_URL}/users/${this.username}`);
+		const response = await axios({
+			url: `${BASE_URL}/users/${this.username}`,
+			method: 'PATCH',
+			data: { token: this.loginToken, user: newUserData }
+		});
+		console.log('response', response);
 
-	// 	let { user } = response.data;
+		let { user } = response.data;
 
-	// 	return new User(
-	// 		{
-	// 			username: user.username,
-	// 			name: user.name,
-	// 			createdAt: user.createdAt,
-	// 			favorites: user.favorites,
-	// 			ownStories: user.stories
-	// 		},
-	// 		// response.data.token
-	// 		this.loginToken
-	// 	);
-	// }
+		return new User(
+			{
+				username: user.username,
+				name: user.name,
+				createdAt: user.createdAt,
+				favorites: user.favorites,
+				ownStories: user.stories
+			},
+			// response.data.token
+			this.loginToken
+		);
+	}
 
 	async addFavoriteStory(story) {
 		console.debug('addFavoriteStory');

@@ -60,50 +60,50 @@ const signup = async (evt) => {
 
 $signupForm.on('submit', signup);
 
-// const makeNewUserDataObject = (name, username, password) => {
-// 	const newUserData = {};
-// 	if (name) {
-// 		newUserData.name = name;
-// 	}
-// 	if (username) {
-// 		newUserData.username = username;
-// 	}
-// 	if (password) {
-// 		newUserData.password = password;
-// 	}
-// 	return newUserData;
-// };
+const makeNewUserDataObject = (name, username, password) => {
+	const newUserData = {};
+	if (name) {
+		newUserData.name = name;
+	}
+	if (username) {
+		newUserData.username = username;
+	}
+	if (password) {
+		newUserData.password = password;
+	}
+	return newUserData;
+};
 
-// // Handle update-user form submission.
-// const updateUser = async (evt) => {
-// 	console.debug('updateUser', evt);
-// 	evt.preventDefault();
+// Handle update-user form submission.
+const updateUser = async (evt) => {
+	console.debug('updateUser', evt);
+	evt.preventDefault();
 
-// 	const name = $('#update-name').val();
-// 	const username = $('#update-username').val();
-// 	const password = $('#update-password').val();
+	const name = $('#update-name').val();
+	const username = $('#update-username').val();
+	const password = $('#update-password').val();
 
-// 	//create an object with new fields
-// 	const newUserData = makeNewUserDataObject(name, username, password);
+	//create an object with new fields
+	const newUserData = makeNewUserDataObject(name, username, password);
 
-// 	// User.updateUser sends any new fields to the API and updates the user info
-// 	// which we'll make the globally-available, logged-in user.
-// 	try {
-// 		currentUser = await currentUser.updateUser(newUserData);
-// 		console.log('New currentUser', currentUser);
+	// User.updateUser sends any new fields to the API and updates the user info
+	// which we'll make the globally-available, logged-in user.
+	try {
+		currentUser = await currentUser.updateUser(newUserData);
+		console.log('New currentUser', currentUser);
 
-// 		saveUserCredentialsInLocalStorage();
-// 		updateUIOnUserLogin();
+		saveUserCredentialsInLocalStorage();
+		updateUIOnUserLogin();
 
-// 		$updateUserForm.trigger('reset');
-// 	} catch (e) {
-// 		console.log('Username already in use. Please choose another.', e);
-// 		$signupError.show();
-// 		$signupForm.trigger('reset');
-// 	}
-// };
+		$updateUserForm.trigger('reset');
+	} catch (e) {
+		console.log('Username already in use. Please choose another.', e);
+		$signupError.show();
+		$signupForm.trigger('reset');
+	}
+};
 
-// $updateUserForm.on('submit', updateUser);
+$updateUserForm.on('submit', updateUser);
 
 // Handle click of logout button, remove credentials from localStorage & refresh page
 const logout = (evt) => {
