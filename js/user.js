@@ -60,6 +60,20 @@ const signup = async (evt) => {
 
 $signupForm.on('submit', signup);
 
+const makeNewUserDataObject = (name, username, password) => {
+	const newUserData = {};
+	if (name) {
+		newUserData.name = name;
+	}
+	if (username) {
+		newUserData.username = username;
+	}
+	if (password) {
+		newUserData.password = password;
+	}
+	return newUserData;
+};
+
 // Handle update-user form submission.
 const updateUser = async (evt) => {
 	console.debug('updateUser', evt);
@@ -71,6 +85,7 @@ const updateUser = async (evt) => {
 
 	//create an object with new fields
 	newUserData = makeNewUserDataObject(name, username, password);
+	console.log(newUserData);
 
 	// User.updateUser sends any new fields to the API and updates the user info
 	// which we'll make the globally-available, logged-in user.
