@@ -224,42 +224,45 @@ class User {
    * - opt name: the user's full name
    */
 
-	async updateUser(newUserData) {
-		const response = await axios({
-			url: `${BASE_URL}/users/${this.username}`,
-			method: 'PATCH',
-			data: { token: this.loginToken },
-			user: newUserData
-		});
+	// async updateUser(newUserData) {
+	// 	console.log(newUserData);
 
-		let { user } = response.data;
+	// 	console.debug('updateUser', `${BASE_URL}/users/${this.username}`);
+	// 	const response = await axios({
+	// 		url: `${BASE_URL}/users/${this.username}`,
+	// 		method: 'PATCH',
+	// 		data: { token: this.loginToken, user: newUserData }
+	// 	});
+	// 	console.log('response', response);
 
-		return new User(
-			{
-				username: user.username,
-				name: user.name,
-				createdAt: user.createdAt,
-				favorites: user.favorites,
-				ownStories: user.stories
-			},
-			response.data.token
-		);
-	}
+	// 	let { user } = response.data;
+
+	// 	return new User(
+	// 		{
+	// 			username: user.username,
+	// 			name: user.name,
+	// 			createdAt: user.createdAt,
+	// 			favorites: user.favorites,
+	// 			ownStories: user.stories
+	// 		},
+	// 		// response.data.token
+	// 		this.loginToken
+	// 	);
+	// }
 
 	async addFavoriteStory(story) {
-		console.debug('addFavoriteStory', story);
+		console.debug('addFavoriteStory');
 		this.favorites.push(story);
 		const res = await axios.post(
 			`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
 			{ token: this.loginToken }
 		);
-		console.log('add response', res);
 
 		return this.favorites;
 	}
 
 	async removeFavoriteStory(story) {
-		console.debug('removeFavoriteStory', story);
+		console.debug('removeFavoriteStory');
 
 		this.favorites = this.favorites.filter((s) => {
 			return s.storyId != story.storyId;
@@ -274,7 +277,7 @@ class User {
 
 	isFavorite = (story) => {
 		// console.debug('isFavorite');
-		for (let fav of this.favorites) {
+		for (let fav of currentUser.favorites) {
 			if (fav.storyId === story.storyId) {
 				return true;
 			}

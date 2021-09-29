@@ -6,7 +6,7 @@
 
 // Show main list of all stories when click site name
 const navAllStories = (evt) => {
-	console.debug('navAllStories', evt);
+	console.debug('navAllStories');
 	hidePageComponents();
 	putStoriesOnPage();
 };
@@ -15,7 +15,7 @@ $body.on('click', '#nav-all', navAllStories);
 
 // Show login/signup on click on "login"
 const navLoginClick = (evt) => {
-	console.debug('navLoginClick', evt);
+	console.debug('navLoginClick');
 	hidePageComponents();
 	$loginForm.show();
 	$signupForm.show();
@@ -35,7 +35,7 @@ const updateNavOnLogin = () => {
 
 // Show submit new story form
 const navSubmitClick = (evt) => {
-	console.debug('navSubmitClick', evt);
+	console.debug('navSubmitClick');
 	$submitStory.show();
 };
 

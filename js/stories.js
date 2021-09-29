@@ -53,25 +53,26 @@ const generateStoryMarkup = (story, showTrash = false) => {
 const getStory = (storyId) => {
 	// return storyList.stories.filter((story) => story.storyId === storyId)[0];
 	for (let story of storyList.stories) {
-		if ((story.storyId = storyId)) {
+		if (story.storyId === storyId) {
 			return story;
 		}
 	}
 };
 
 // Toggle the Favorite Star for a story from Favorite to not Favorite or vice versa
-const toggleStar = (evt) => {
+const toggleStar = async (evt) => {
 	console.debug('toggleStar');
 	const $target = $(evt.target);
 	const storyId = $target.closest('li').attr('id');
 
-	const story = getStory(storyId);
+	// const story = getStory(storyId);
+	const story = storyList.stories.find((s) => s.storyId === storyId);
 
 	if ($target.closest('i').hasClass('fas')) {
-		currentUser.removeFavoriteStory(story);
+		await currentUser.removeFavoriteStory(story);
 		$target.closest('i').toggleClass('fas far');
 	} else {
-		currentUser.addFavoriteStory(story);
+		await currentUser.addFavoriteStory(story);
 		$target.closest('i').toggleClass('fas far');
 	}
 };
