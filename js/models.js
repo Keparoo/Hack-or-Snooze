@@ -217,6 +217,35 @@ class User {
 		}
 	}
 
+	/** Update user in API, make User instance & return it.
+   *
+   * - opt username: a new username
+   * - opt password: a new password
+   * - opt name: the user's full name
+   */
+
+	async updateUser(newUsername = '', newPassword = '', newName = '') {
+		const response = await axios({
+			url: `${BASE_URL}/users/${this.username}`,
+			method: 'PATCH',
+			data: { token: this.loginToken },
+			user: { newUsername, newPassword, newName }
+		});
+
+		let { user } = response.data;
+
+		return new User(
+			{
+				username: user.username,
+				name: user.name,
+				createdAt: user.createdAt,
+				favorites: user.favorites,
+				ownStories: user.stories
+			},
+			response.data.token
+		);
+	}
+
 	async addFavoriteStory(story) {
 		console.debug('addFavoriteStory', story);
 		this.favorites.push(story);

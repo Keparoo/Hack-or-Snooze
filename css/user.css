@@ -36,3 +36,6 @@
 	color: white;
 	background-color: lightslategray;
 }
+#update-user-btn:hover {
+	background-color: dimgray;
+}
