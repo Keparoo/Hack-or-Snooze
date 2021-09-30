@@ -265,6 +265,7 @@ class User {
 	// Add a favorite story from API
 	addFavoriteStory = async (story) => {
 		console.debug('addFavoriteStory');
+
 		this.favorites.push(story);
 		const res = await axios.post(
 			`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
@@ -292,6 +293,7 @@ class User {
 	// Return true if the passed in story is a favorite
 	isFavorite = (story) => {
 		// console.debug('isFavorite');
+
 		for (let fav of currentUser.favorites) {
 			if (fav.storyId === story.storyId) {
 				return true;
