@@ -157,7 +157,6 @@ const submitNewStory = async (evt) => {
 	$allStoriesList.prepend($story);
 	$submitStory.slideUp('slow');
 	$submitStoryForm.trigger('reset');
-	// $submitStory.hide();
 };
 
 $submitStoryForm.on('submit', submitNewStory);
@@ -180,41 +179,45 @@ const showUpdateStoryForm = (evt) => {
 
 $body.on('click', '.update-story-btn', showUpdateStoryForm);
 
-const submitUpdateStory = async (evt) => {
-	evt.preventDefault();
-	console.debug('submitUpdateStory');
-	const author = $('#update-story-author').val();
-	const title = $('#update-story-title').val();
-	const url = $('#update-story-url').val();
-	const storyId = $('#update-story-form').data('storyId');
-	console.log(storyId);
-	console.log(author, title, url);
-
-	const updatedStory = await storyList.updateStory(currentUser, storyId, {
-		title,
-		author,
-		url
-	});
-	console.log(updatedStory);
-
-	// this.stories = this.stories.filter((story) => story.storyId !== storyId);
+const updateFavorites = (storyId, author, title, url) => {
 	const favStoryToUpdate = currentUser.favorites.find(
 		(f) => f.storyId === storyId
-	);
-	const ownStoryToUpdate = currentUser.ownStories.find(
-		(o) => o.storyId === storyId
 	);
 	if (favStoryToUpdate) {
 		favStoryToUpdate.author = author;
 		favStoryToUpdate.title = title;
 		favStoryToUpdate.url = url;
 	}
+};
+
+const updateOwnStories = (storyId, author, title, url) => {
+	const ownStoryToUpdate = currentUser.ownStories.find(
+		(o) => o.storyId === storyId
+	);
 	ownStoryToUpdate.author = author;
 	ownStoryToUpdate.title = title;
 	ownStoryToUpdate.url = url;
+};
+
+const submitUpdateStory = async (evt) => {
+	evt.preventDefault();
+	console.debug('submitUpdateStory');
+
+	const author = $('#update-story-author').val();
+	const title = $('#update-story-title').val();
+	const url = $('#update-story-url').val();
+	const storyId = $('#update-story-form').data('storyId');
+
+	const updatedStory = await storyList.updateStory(currentUser, storyId, {
+		title,
+		author,
+		url
+	});
+
+	updateFavorites(storyId, author, title, url);
+	updateOwnStories(storyId, author, title, url);
 
 	$updateStory.slideUp('slow');
-	// $updateStory.hide();
 	$updateStoryForm.trigger('reset');
 	hidePageComponents();
 	putmyStoriesOnPage();

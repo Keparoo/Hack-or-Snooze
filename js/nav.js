@@ -36,6 +36,8 @@ const updateNavOnLogin = () => {
 // Show submit new story form
 const navSubmitClick = (evt) => {
 	console.debug('navSubmitClick');
+	hidePageComponents();
+	$allStoriesList.show();
 	$submitStory.show();
 };
 
