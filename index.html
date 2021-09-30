@@ -7,7 +7,8 @@
      - Elie Schoppik: refactoring using OO, 2019
      - Joel Burton: refactored and componentized, 2020
      - Kep Kaeppeler: updated to ES2015 and expanded functionality to 
-        submit new stories, add/display favorites, add/display own stories
+        submit new stories, add/display favorites, add/display own stories,
+        update story, update user, data error checking
   -->
 
 <html lang="en">
@@ -142,6 +143,7 @@
         </form>
     </section>
 
+    <!-- User profile area -->
     <section id="user-profile-info" class="hidden">
         <div class="user-profile container">
             <h4>User Profile Info</h4>
@@ -153,6 +155,7 @@
             </section>
         </div>
 
+        <!-- Update user form area -->
         <section class="account-forms-container container">
             <form action="#" id="update-user-form" class="account-form hidden" method="post">
                 <h4>Update User Account Info</h4>
