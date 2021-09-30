@@ -25,6 +25,23 @@ class Story {
 		const urlObj = new URL(this.url);
 		return urlObj.hostname;
 	};
+
+	// This will update a story in the API & Locally
+	updateStory = async (newVals) => {
+		console.debug('updateStory');
+
+		const res = await axios({
+			url: `${BASE_URL}/stories/${this.storyId}`,
+			method: 'PATCH',
+			data: { token: currentUser.loginToken, story: newVals }
+		});
+
+		// Update the values locally
+		this.author = newVals.author;
+		this.title = newVals.title;
+		this.url = newVals.url;
+		return res.data.story;
+	};
 }
 
 /**********************************************************************************/
@@ -70,7 +87,6 @@ class StoryList {
    */
 
 	addStory = async (user, newStory) => {
-		// UNIMPLEMENTED: complete this function!
 		const res = await axios.post(`${BASE_URL}/stories`, {
 			token: user.loginToken,
 			story: {
@@ -87,22 +103,24 @@ class StoryList {
 		return new Story(res.data.story);
 	};
 
-	updateStory = async (user, storyId, newVals) => {
-		console.debug('updateStory');
+	// // This will update a story in the API
+	// updateStory = async (user, storyId, newVals) => {
+	// 	console.debug('updateStory');
 
-		const res = await axios({
-			url: `${BASE_URL}/stories/${storyId}`,
-			method: 'PATCH',
-			data: { token: currentUser.loginToken, story: newVals }
-		});
-		// console.log(res);
+	// 	const res = await axios({
+	// 		url: `${BASE_URL}/stories/${storyId}`,
+	// 		method: 'PATCH',
+	// 		data: { token: currentUser.loginToken, story: newVals }
+	// 	});
 
-		const story = storyList.stories.find((s) => s.storyId === storyId);
-		story.author = newVals.author;
-		story.title = newVals.title;
-		story.url = newVals.url;
-		return res.data.story;
-	};
+	// 	const story = storyList.stories.find((s) => s.storyId === storyId);
+
+	//     // Update the values locally
+	// 	story.author = newVals.author;
+	// 	story.title = newVals.title;
+	// 	story.url = newVals.url;
+	// 	return res.data.story;
+	// };
 
 	// Deletes a story from API, updates the users favorites and ownStories lists
 	deleteStory = async (user, storyId) => {
@@ -111,7 +129,6 @@ class StoryList {
 		const res = await axios.delete(`${BASE_URL}/stories/${storyId}`, {
 			data: { token: user.loginToken }
 		});
-		// console.debug('delete story response', res);
 
 		this.stories = this.stories.filter((story) => story.storyId !== storyId);
 		user.favorites = user.favorites.filter(
@@ -242,15 +259,13 @@ class User {
    */
 
 	async updateUser(newUserData) {
-		console.log(newUserData);
+		console.debug('updateUser');
 
-		// console.debug('updateUser', `${BASE_URL}/users/${this.username}`);
 		const response = await axios({
 			url: `${BASE_URL}/users/${this.username}`,
 			method: 'PATCH',
 			data: { token: this.loginToken, user: newUserData }
 		});
-		// console.log('response', response);
 
 		let { user } = response.data;
 
@@ -262,11 +277,11 @@ class User {
 				favorites: user.favorites,
 				ownStories: user.stories
 			},
-			// response.data.token
 			this.loginToken
 		);
 	}
 
+	// Add a favorite story from API
 	async addFavoriteStory(story) {
 		console.debug('addFavoriteStory');
 		this.favorites.push(story);
@@ -278,6 +293,7 @@ class User {
 		return this.favorites;
 	}
 
+	// Remove a favorite from the API
 	async removeFavoriteStory(story) {
 		console.debug('removeFavoriteStory');
 
@@ -292,6 +308,7 @@ class User {
 		return this.favorites;
 	}
 
+	// Return true if the passed in story is a favorite
 	isFavorite = (story) => {
 		// console.debug('isFavorite');
 		for (let fav of currentUser.favorites) {

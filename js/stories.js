@@ -207,8 +207,9 @@ const submitUpdateStory = async (evt) => {
 	const title = $('#update-story-title').val();
 	const url = $('#update-story-url').val();
 	const storyId = $('#update-story-form').data('storyId');
+	const story = storyList.stories.find((s) => s.storyId === storyId);
 
-	const updatedStory = await storyList.updateStory(currentUser, storyId, {
+	const updatedStory = await story.updateStory({
 		title,
 		author,
 		url
