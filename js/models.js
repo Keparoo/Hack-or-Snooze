@@ -60,7 +60,7 @@ class StoryList {
    *  - returns the StoryList instance.
    */
 
-	static async getStories() {
+	static getStories = async () => {
 		// Note presence of `static` keyword: this indicates that getStories is
 		//  **not** an instance method. Rather, it is a method that is called on the
 		//  class directly. Why doesn't it make sense for getStories to be an
@@ -77,7 +77,7 @@ class StoryList {
 
 		// build an instance of our own class using the new array of stories
 		return new StoryList(stories);
-	}
+	};
 
 	/** Adds story data to API, makes a Story instance, adds it to story list.
    * - user - the current instance of User who will post the story
@@ -102,25 +102,6 @@ class StoryList {
 
 		return new Story(res.data.story);
 	};
-
-	// // This will update a story in the API
-	// updateStory = async (user, storyId, newVals) => {
-	// 	console.debug('updateStory');
-
-	// 	const res = await axios({
-	// 		url: `${BASE_URL}/stories/${storyId}`,
-	// 		method: 'PATCH',
-	// 		data: { token: currentUser.loginToken, story: newVals }
-	// 	});
-
-	// 	const story = storyList.stories.find((s) => s.storyId === storyId);
-
-	//     // Update the values locally
-	// 	story.author = newVals.author;
-	// 	story.title = newVals.title;
-	// 	story.url = newVals.url;
-	// 	return res.data.story;
-	// };
 
 	// Deletes a story from API, updates the users favorites and ownStories lists
 	deleteStory = async (user, storyId) => {
@@ -158,7 +139,7 @@ class User {
 		this.name = name;
 		this.createdAt = createdAt;
 
-		// instantiate Story instances for the user's favorites and ownStories
+		// Instantiate Story instances for the user's favorites and ownStories
 		this.favorites = favorites.map((s) => new Story(s));
 		this.ownStories = ownStories.map((s) => new Story(s));
 
@@ -173,7 +154,7 @@ class User {
    * - name: the user's full name
    */
 
-	static async signup(username, password, name) {
+	static signup = async (username, password, name) => {
 		const response = await axios({
 			url: `${BASE_URL}/signup`,
 			method: 'POST',
@@ -192,7 +173,7 @@ class User {
 			},
 			response.data.token
 		);
-	}
+	};
 
 	/** Login in user with API, make User instance & return it.
 
@@ -200,7 +181,7 @@ class User {
    * - password: an existing user's password
    */
 
-	static async login(username, password) {
+	static login = async (username, password) => {
 		const response = await axios({
 			url: `${BASE_URL}/login`,
 			method: 'POST',
@@ -219,13 +200,13 @@ class User {
 			},
 			response.data.token
 		);
-	}
+	};
 
 	/** When we already have credentials (token & username) for a user,
      *   we can log them in automatically. This function does that.
      */
 
-	static async loginViaStoredCredentials(token, username) {
+	static loginViaStoredCredentials = async (token, username) => {
 		try {
 			const response = await axios({
 				url: `${BASE_URL}/users/${username}`,
@@ -249,7 +230,7 @@ class User {
 			console.error('loginViaStoredCredentials failed', err);
 			return null;
 		}
-	}
+	};
 
 	/** Update user in API, make User instance & return it.
    *
@@ -258,7 +239,7 @@ class User {
    * - opt name: the user's full name
    */
 
-	async updateUser(newUserData) {
+	updateUser = async (newUserData) => {
 		console.debug('updateUser');
 
 		const response = await axios({
@@ -279,10 +260,10 @@ class User {
 			},
 			this.loginToken
 		);
-	}
+	};
 
 	// Add a favorite story from API
-	async addFavoriteStory(story) {
+	addFavoriteStory = async (story) => {
 		console.debug('addFavoriteStory');
 		this.favorites.push(story);
 		const res = await axios.post(
@@ -291,10 +272,10 @@ class User {
 		);
 
 		return this.favorites;
-	}
+	};
 
 	// Remove a favorite from the API
-	async removeFavoriteStory(story) {
+	removeFavoriteStory = async (story) => {
 		console.debug('removeFavoriteStory');
 
 		this.favorites = this.favorites.filter((s) => {
@@ -306,7 +287,7 @@ class User {
 		);
 
 		return this.favorites;
-	}
+	};
 
 	// Return true if the passed in story is a favorite
 	isFavorite = (story) => {
