@@ -161,6 +161,7 @@ const submitNewStory = async (evt) => {
 
 $submitStoryForm.on('submit', submitNewStory);
 
+// Get current story values and populate update show form with them
 const showUpdateStoryForm = (evt) => {
 	console.debug('showUpdateStoryForm', evt);
 	const $target = $(evt.target);
@@ -179,6 +180,7 @@ const showUpdateStoryForm = (evt) => {
 
 $body.on('click', '.update-story-btn', showUpdateStoryForm);
 
+// Update list of favorites for current user
 const updateFavorites = (storyId, author, title, url) => {
 	const favStoryToUpdate = currentUser.favorites.find(
 		(f) => f.storyId === storyId
@@ -190,6 +192,7 @@ const updateFavorites = (storyId, author, title, url) => {
 	}
 };
 
+// Update list of own stories for current user
 const updateOwnStories = (storyId, author, title, url) => {
 	const ownStoryToUpdate = currentUser.ownStories.find(
 		(o) => o.storyId === storyId
@@ -199,6 +202,7 @@ const updateOwnStories = (storyId, author, title, url) => {
 	ownStoryToUpdate.url = url;
 };
 
+// Get values from updateStory form and pass them to API-call func and update locally
 const submitUpdateStory = async (evt) => {
 	evt.preventDefault();
 	console.debug('submitUpdateStory');
