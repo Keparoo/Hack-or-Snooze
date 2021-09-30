@@ -21,6 +21,14 @@ const navLoginClick = (evt) => {
 	$signupForm.show();
 };
 
+// Display the submit, favorites and mystories nav elements
+const showUserNavElements = () => {
+	console.debug('showUserNavElements');
+	$navSubmit.show();
+	$navFavorites.show();
+	$navMyStories.show();
+};
+
 $navLogin.on('click', navLoginClick);
 
 // When a user first logins in, update the navbar to reflect that.
@@ -52,7 +60,7 @@ const navFavoritesClick = (evt) => {
 
 $body.on('click', '#nav-favorites', navFavoritesClick);
 
-// Show list of user's submitted stories
+// Show list of user's own stories
 const myStoriesClick = (evt) => {
 	console.debug('myStoriesClick');
 	hidePageComponents();
@@ -60,14 +68,6 @@ const myStoriesClick = (evt) => {
 };
 
 $body.on('click', '#nav-my-stories', myStoriesClick);
-
-// Display the submit, favorites and mystories nav elements
-const showUserNavElements = () => {
-	console.debug('showUserNavElements');
-	$navSubmit.show();
-	$navFavorites.show();
-	$navMyStories.show();
-};
 
 // Display user profile info
 const showUserProfileInfo = () => {
