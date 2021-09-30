@@ -26,7 +26,8 @@
 	width: 8rem;
 }
 
-#update-user-btn {
+#update-user-btn,
+#submit-update-story-btn {
 	margin: 5px 0px 15px 0px;
 	width: 8rem;
 	padding: 8px;
@@ -36,6 +37,26 @@
 	color: white;
 	background-color: lightslategray;
 }
-#update-user-btn:hover {
+
+#submit-update-story-btn {
+	margin: 5px 0px 20px 65px;
+}
+
+#update-user-btn:hover,
+#submit-update-story-btn:hover {
+	background-color: dimgray;
+}
+
+.update-story-btn {
+	float: right;
+	margin-right: 325px;
+	padding: 4px;
+	border: none;
+	border-radius: 4px;
+	color: white;
+	background-color: lightslategray;
+}
+
+.update-story-btn:hover {
 	background-color: dimgray;
 }
