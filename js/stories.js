@@ -48,7 +48,6 @@ const generateStoryMarkup = (story, showTrash = false, showUpdate = false) => {
         <span class="star">${star}</span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
-          
         </a>
         <small class="story-hostname">(${hostName})</small>
         <small class="story-author">by ${story.author}</small>
@@ -156,8 +155,69 @@ const submitNewStory = async (evt) => {
 	});
 	const $story = generateStoryMarkup(newStory);
 	$allStoriesList.prepend($story);
-	$submitStoryForm.slideUp('slow');
+	$submitStory.slideUp('slow');
 	$submitStoryForm.trigger('reset');
+	// $submitStory.hide();
 };
 
 $submitStoryForm.on('submit', submitNewStory);
+
+const showUpdateStoryForm = (evt) => {
+	console.debug('showUpdateStoryForm', evt);
+	const $target = $(evt.target);
+	const storyId = $target.closest('li').attr('id');
+	console.log(storyId);
+
+	const story = storyList.stories.find((s) => s.storyId === storyId);
+	console.log(story);
+
+	$('#update-story-author').val(story.author);
+	$('#update-story-title').val(story.title);
+	$('#update-story-url').val(story.url);
+	$('#update-story-form').data('storyId', storyId);
+	$updateStory.show();
+};
+
+$body.on('click', '.update-story-btn', showUpdateStoryForm);
+
+const submitUpdateStory = async (evt) => {
+	evt.preventDefault();
+	console.debug('submitUpdateStory');
+	const author = $('#update-story-author').val();
+	const title = $('#update-story-title').val();
+	const url = $('#update-story-url').val();
+	const storyId = $('#update-story-form').data('storyId');
+	console.log(storyId);
+	console.log(author, title, url);
+
+	const updatedStory = await storyList.updateStory(currentUser, storyId, {
+		title,
+		author,
+		url
+	});
+	console.log(updatedStory);
+
+	// this.stories = this.stories.filter((story) => story.storyId !== storyId);
+	const favStoryToUpdate = currentUser.favorites.find(
+		(f) => f.storyId === storyId
+	);
+	const ownStoryToUpdate = currentUser.ownStories.find(
+		(o) => o.storyId === storyId
+	);
+	if (favStoryToUpdate) {
+		favStoryToUpdate.author = author;
+		favStoryToUpdate.title = title;
+		favStoryToUpdate.url = url;
+	}
+	ownStoryToUpdate.author = author;
+	ownStoryToUpdate.title = title;
+	ownStoryToUpdate.url = url;
+
+	$updateStory.slideUp('slow');
+	// $updateStory.hide();
+	$updateStoryForm.trigger('reset');
+	hidePageComponents();
+	putmyStoriesOnPage();
+};
+
+$body.on('click', '#submit-update-story-btn', submitUpdateStory);

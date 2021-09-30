@@ -20,10 +20,12 @@ const $navSubmit = $('#nav-submit');
 const $navFavorites = $('#nav-favorites');
 const $navMyStories = $('#nav-my-stories');
 const $navUserProfile = $('#nav-user-profile');
+const $navLogOut = $('#nav-logout');
+
 const $updateUserForm = $('#update-user-form');
 const $updateError = $('#update-error');
 const $updateUserBtn = $('#update-user-btn');
-const $navLogOut = $('#nav-logout');
+
 const $loginError = $('#login-error');
 const $signupError = $('#signup-error');
 const $updateStory = $('#update-story');
