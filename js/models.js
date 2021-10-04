@@ -266,11 +266,11 @@ class User {
 	addFavoriteStory = async (story) => {
 		console.debug('addFavoriteStory');
 
-		this.favorites.push(story);
 		const res = await axios.post(
 			`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
 			{ token: this.loginToken }
 		);
+		this.favorites.push(story);
 
 		return this.favorites;
 	};
@@ -279,13 +279,14 @@ class User {
 	removeFavoriteStory = async (story) => {
 		console.debug('removeFavoriteStory');
 
-		this.favorites = this.favorites.filter((s) => {
-			return s.storyId != story.storyId;
-		});
 		const res = await axios.delete(
 			`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
 			{ data: { token: this.loginToken } }
 		);
+
+		this.favorites = this.favorites.filter((s) => {
+			return s.storyId != story.storyId;
+		});
 
 		return this.favorites;
 	};
