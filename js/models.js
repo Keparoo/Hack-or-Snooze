@@ -249,17 +249,7 @@ class User {
 		});
 
 		let { user } = response.data;
-
-		return new User(
-			{
-				username: user.username,
-				name: user.name,
-				createdAt: user.createdAt,
-				favorites: user.favorites,
-				ownStories: user.stories
-			},
-			this.loginToken
-		);
+		this.name = user.name;
 	};
 
 	// Add a favorite story from API

@@ -60,17 +60,6 @@ const signup = async (evt) => {
 
 $signupForm.on('submit', signup);
 
-const makeNewUserDataObject = (name, password) => {
-	const newUserData = {};
-	if (name) {
-		newUserData.name = name;
-	}
-	if (password) {
-		newUserData.password = password;
-	}
-	return newUserData;
-};
-
 // Handle update-user form submission.
 const updateUser = async (evt) => {
 	console.debug('updateUser', evt);
@@ -79,22 +68,20 @@ const updateUser = async (evt) => {
 	const name = $('#update-name').val();
 	const password = $('#update-password').val();
 
-	//create an object with new fields
-	const newUserData = makeNewUserDataObject(name, password);
-
 	// User.updateUser sends any new fields to the API and updates the user info
-	// which we'll make the globally-available, logged-in user.
 	try {
-		currentUser = await currentUser.updateUser(newUserData);
+		await currentUser.updateUser({ name, password });
 
 		saveUserCredentialsInLocalStorage();
 		updateUIOnUserLogin();
 
 		$updateUserForm.trigger('reset');
+		$updateUserForm.hide();
 	} catch (e) {
 		console.log('Server error. Please try again later.', e);
 		$updateError.show();
 		$updateUserForm.trigger('reset');
+		$updateUserForm.hide();
 	}
 };
 
