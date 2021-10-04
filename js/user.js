@@ -76,12 +76,10 @@ const updateUser = async (evt) => {
 		updateUIOnUserLogin();
 
 		$updateUserForm.trigger('reset');
-		$updateUserForm.hide();
 	} catch (e) {
 		console.log('Server error. Please try again later.', e);
 		$updateError.show();
 		$updateUserForm.trigger('reset');
-		$updateUserForm.hide();
 	}
 };
 
