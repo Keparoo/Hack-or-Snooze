@@ -294,11 +294,6 @@ class User {
 	isFavorite = (story) => {
 		// console.debug('isFavorite');
 
-		for (let fav of currentUser.favorites) {
-			if (fav.storyId === story.storyId) {
-				return true;
-			}
-		}
-		return false;
+		return this.favorites.find((st) => st.storyId === story.storyId);
 	};
 }
