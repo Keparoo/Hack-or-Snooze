@@ -36,10 +36,8 @@ const makeUpdateMarkup = () => {
 const generateStoryMarkup = (story, showTrash = false, showUpdate = false) => {
 	// console.debug('generateStoryMarkup');
 
-	let trash;
-	let update;
-	showTrash ? (trash = makeTrashMarkup()) : (trash = '');
-	showUpdate ? (update = makeUpdateMarkup()) : (update = '');
+	const trash = showTrash ? makeTrashMarkup() : '';
+	const update = showUpdate ? makeUpdateMarkup() : '';
 	const star = makeStarMarkup(currentUser, story);
 	const hostName = story.getHostName();
 
